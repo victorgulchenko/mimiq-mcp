@@ -1,6 +1,6 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "com.mimiqai/mimiq-mcp",
+  "name": "io.github.victorgulchenko/mimiq-mcp",
   "title": "Mimiq - Synthetic User Testing",
   "description": "Your agent tests pages, copy, and flows on simulated users while you build.",
   "websiteUrl": "https://mimiqai.com",
@@ -11,7 +11,7 @@
   "version": "0.2.1",
   "remotes": [
     {
-      "transportType": "streamable-http",
+      "type": "streamable-http",
       "url": "https://mcp.mimiqai.com/mcp"
     }
   ]
