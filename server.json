@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "com.mimiqai/mimiq-mcp",
   "title": "Mimiq - Synthetic User Testing",
-  "description": "Test pages, copy, and product decisions on simulated audiences that tell you what's actually wrong — before you ship. Generates realistic personas with demographics, budgets, and skepticism, then runs them through your content.",
+  "description": "Your agent tests pages, copy, and flows on simulated users while you build.",
   "websiteUrl": "https://mimiqai.com",
   "repository": {
     "url": "https://github.com/victorgulchenko/mimiq-mcp",
