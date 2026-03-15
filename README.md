@@ -4,6 +4,8 @@ Your AI coding agent tests pages, copy, and flows on simulated users — automat
 
 [![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_MCP-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect?url=vscode%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522mimiq%2522%252C%2522type%2522%253A%2522http%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fmcp.mimiqai.com%252Fmcp%2522%257D) [![Install in Cursor](https://img.shields.io/badge/Cursor-Install_MCP-black?style=flat-square&logo=cursor&logoColor=white)](https://cursor.com/install-mcp?name=mimiq&config=eyJ0cmFuc3BvcnQiOiJzdHJlYW1hYmxlX2h0dHAiLCJ1cmwiOiJodHRwczovL21jcC5taW1pcWFpLmNvbS9tY3AifQ==)
 
+[![Mimiq MCP server](https://glama.ai/mcp/servers/victorgulchenko/mimiq-mcp/badges/card.svg)](https://glama.ai/mcp/servers/victorgulchenko/mimiq-mcp)
+
 ## Setup (30 seconds)
 
 ### Claude Code
