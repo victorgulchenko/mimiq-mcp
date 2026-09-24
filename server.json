@@ -1,14 +1,14 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.victorgulchenko/mimiq-mcp",
-  "title": "Mimiq - Synthetic User Testing",
-  "description": "Your agent tests pages, copy, and flows on simulated users while you build.",
+  "title": "Mimiq: test pages and copy on simulated people",
+  "description": "Your agent built the page. Simulated buyers test it, and Mimiq calls which version to ship.",
   "websiteUrl": "https://mimiqai.com",
   "repository": {
-    "url": "https://github.com/victorgulchenko/mimiq-mcp",
+    "url": "https://github.com/victorgulchenko/mimiq-mcp.git",
     "source": "github"
   },
-  "version": "0.2.1",
+  "version": "0.4.0",
   "remotes": [
     {
       "type": "streamable-http",
