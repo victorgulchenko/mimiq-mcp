@@ -47,7 +47,7 @@ Use at least 5 people per comparison: from 5 up, Mimiq reads who moved; below th
 
 ## How far to trust it
 
-These are simulated people. Only headline tests are benchmarked against real outcomes so far: Mimiq's forecast was right on 76% of 1,000 real headline A/B tests, against 61% for the best rule of thumb ([the benchmark](https://mimiqai.com/benchmark)). Pages, emails and other copy have not been benchmarked yet, so treat those calls as a fast first read. A call says which way a difference would go, not how big it would be.
+These are simulated people. Mimiq's forecast has held up on headlines: right on 76% of 1,000 real headline A/B tests, against 61% for the best rule of thumb ([the benchmark](https://mimiqai.com/benchmark)). In pre-registered tests on emails, text messages and ads it was no better than chance at ranking small wording changes ([the register](https://github.com/victorgulchenko/mimiqbench)), so treat those calls as a fast first read. A call says which way a difference would go, not how big it would be.
 
 ## Setup
 
