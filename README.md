@@ -4,6 +4,8 @@ Your agent built the page. Simulated buyers test it.
 
 Mimiq shows a page, copy or email to a crowd of simulated people and reports how they reacted and why: who would stay, who would leave, what confused them and what would change their mind. Give it two versions and it makes a call on which one to ship.
 
+Flows go further: each simulated person opens your live site in a real browser and tries a task, such as signing up or reaching checkout. They click, type and fill in your forms, with an inbox of their own for verification codes, and the report shows how far each one got, where they stopped and why.
+
 [![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_MCP-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect?url=vscode%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522mimiq%2522%252C%2522type%2522%253A%2522http%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fmcp.mimiqai.com%252Fmcp%2522%257D) [![Install in Cursor](https://img.shields.io/badge/Cursor-Install_MCP-black?style=flat-square&logo=cursor&logoColor=white)](https://cursor.com/install-mcp?name=mimiq&config=eyJ1cmwiOiJodHRwczovL21jcC5taW1pcWFpLmNvbS9tY3AifQ==)
 
 ## Tools
@@ -13,7 +15,7 @@ Mimiq shows a page, copy or email to a crowd of simulated people and reports how
 | `mimiq.compare_copy` | Two versions of copy or an email, the same simulated people, and Mimiq's call on which to ship. One free A/B without a key (up to 10 people per version). |
 | `mimiq.compare_urls` | Two pages (for example a preview deployment and production), the same simulated people, and Mimiq's call. One free A/B without a key (up to 10 people per version). |
 | `mimiq.test_page` | One page: each person scrolls it and says what confused them, what they doubted and what would help. |
-| `mimiq.test_flow` | A signup, onboarding or checkout flow in a real browser, step by step, to find where people give up. 10 credits a person. |
+| `mimiq.test_flow` | A signup, onboarding or checkout flow in a real browser, step by step, to find where people give up. 30 credits a person. |
 | `mimiq.test_copy` | One piece of copy (headline, tagline, subject line, call to action). With `variant_b` it runs `compare_copy`. |
 | `mimiq.test_text` | Any other text (positioning, feature descriptions, error messages, instructions). Pass `goal`. |
 | `mimiq.test_component` | A UI component from its HTML or a description: do people understand it, trust it, use it? |
@@ -22,6 +24,8 @@ Mimiq shows a page, copy or email to a crowd of simulated people and reports how
 Ask your agent directly, or let it test what it just built:
 
 > "Test my landing page on startup founders"
+>
+> "Have three people try to sign up on my staging site and tell me where they get stuck"
 >
 > "Which headline should we ship? Compare them on freelance designers"
 >
@@ -47,7 +51,7 @@ Use at least 5 people per comparison: from 5 up, Mimiq reads who moved; below th
 
 ## How far to trust it
 
-These are simulated people. Mimiq's forecast has held up on headlines: right on 76% of 1,000 real headline A/B tests, against 61% for the best rule of thumb ([the benchmark](https://mimiqai.com/benchmark)). In pre-registered tests on emails, text messages and ads it was no better than chance at ranking small wording changes ([the register](https://github.com/victorgulchenko/mimiqbench)), so treat those calls as a fast first read. A call says which way a difference would go, not how big it would be.
+These are simulated people. Mimiq's forecast has held up on headlines: right on 76% of 1,000 real headline A/B tests, against 61% for the best rule of thumb ([the benchmark](https://www.mimiqai.com/benchmark)). In pre-registered tests on emails, text messages and ads it was no better than chance at ranking small wording changes ([the register](https://github.com/victorgulchenko/mimiqbench)), so treat those calls as a fast first read. A call says which way a difference would go, not how big it would be.
 
 ## Setup
 
@@ -149,9 +153,9 @@ Through [mcp-remote](https://www.npmjs.com/package/mcp-remote), in the Claude De
 ## Keys and the free try
 
 - **Without a key**, each agent gets one free test: one run on up to 100 simulated people. A comparison shows both versions to the same people, so it needs two runs; without a key an agent also gets one free A/B of up to 10 people per version, while the daily free A/B allowance lasts. Anything larger needs a key, and the tools say so before anything is spent.
-- **Get a key:** create a free account at [mimiqai.com/sign-up](https://mimiqai.com/sign-up?redirect_url=/app/settings) (it adds 100 people). Open [Settings](https://mimiqai.com/app/settings), find "Use Mimiq from your coding agent", and choose "Create a key". The key starts with `mq_sk_` and is shown once.
+- **Get a key:** create a free account at [www.mimiqai.com/sign-up](https://www.mimiqai.com/sign-up?redirect_url=/app/settings) (it adds 100 people). Open [Settings](https://www.mimiqai.com/app/settings), find "Use Mimiq from your coding agent", and choose "Create a key". The key starts with `mq_sk_` and is shown once.
 - **Send it** on every request as `Authorization: Bearer mq_sk_...` (`X-API-Key: mq_sk_...` works too). The setup snippets above do this.
-- **Credits:** one credit is one simulated person in one run (a flow uses 10 a person). A comparison of n people uses 2n: n to recruit them, n for version B (version A's run comes with the new people). Buy more at [mimiqai.com/app/usage](https://mimiqai.com/app/usage); packs start at 500 people for $29.
+- **Credits:** one credit is one simulated person in one run (a flow uses 30 a person). A comparison of n people uses 2n: n to recruit them, n for version B (version A's run comes with the new people). Buy more at [www.mimiqai.com/app/usage](https://www.mimiqai.com/app/usage); packs start at 500 people for $29.
 
 ## Report links
 
