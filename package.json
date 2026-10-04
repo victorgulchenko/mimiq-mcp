@@ -1,0 +1,53 @@
+{
+  "name": "@mimiqai/mcp",
+  "version": "0.3.1",
+  "description": "Test pages, copy and sign-up flows on simulated people with Mimiq MCP.",
+  "type": "module",
+  "main": "./src/server.js",
+  "exports": {
+    ".": {
+      "import": "./src/server.js"
+    }
+  },
+  "bin": {
+    "mimiq-mcp": "./src/server.js"
+  },
+  "files": [
+    "src/",
+    "server.json",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "mimiq",
+    "user-testing",
+    "simulated-users",
+    "personas",
+    "landing-page",
+    "ux-testing",
+    "product-research",
+    "conversion",
+    "ab-testing"
+  ],
+  "author": "Mimiq <victor@mimiqai.com> (https://www.mimiqai.com)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/victorgulchenko/mimiq-mcp.git"
+  },
+  "homepage": "https://www.mimiqai.com/mcp",
+  "bugs": {
+    "url": "https://github.com/victorgulchenko/mimiq-mcp/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

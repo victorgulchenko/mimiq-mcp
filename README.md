@@ -15,7 +15,7 @@ Flows go further: each simulated person opens your live site in a real browser a
 | `mimiq.compare_copy` | Two versions of copy or an email, the same simulated people, and Mimiq's call on which to ship. One free A/B without a key (up to 10 people per version). |
 | `mimiq.compare_urls` | Two pages (for example a preview deployment and production), the same simulated people, and Mimiq's call. One free A/B without a key (up to 10 people per version). |
 | `mimiq.test_page` | One page: each person scrolls it and says what confused them, what they doubted and what would help. |
-| `mimiq.test_flow` | A signup, onboarding or checkout flow in a real browser, step by step, to find where people give up. 30 credits a person. |
+| `mimiq.test_flow` | A signup, onboarding or checkout flow in a real browser, step by step, to find where people give up. Several credits a person ([current price](https://www.mimiqai.com/pricing)). |
 | `mimiq.test_copy` | One piece of copy (headline, tagline, subject line, call to action). With `variant_b` it runs `compare_copy`. |
 | `mimiq.test_text` | Any other text (positioning, feature descriptions, error messages, instructions). Pass `goal`. |
 | `mimiq.test_component` | A UI component from its HTML or a description: do people understand it, trust it, use it? |
@@ -153,9 +153,9 @@ Through [mcp-remote](https://www.npmjs.com/package/mcp-remote), in the Claude De
 ## Keys and the free try
 
 - **Without a key**, each agent gets one free test: one run on up to 100 simulated people. A comparison shows both versions to the same people, so it needs two runs; without a key an agent also gets one free A/B of up to 10 people per version, while the daily free A/B allowance lasts. Anything larger needs a key, and the tools say so before anything is spent.
-- **Get a key:** create a free account at [www.mimiqai.com/sign-up](https://www.mimiqai.com/sign-up?redirect_url=/app/settings) (it adds 100 people). Open [Settings](https://www.mimiqai.com/app/settings), find "Use Mimiq from your coding agent", and choose "Create a key". The key starts with `mq_sk_` and is shown once.
+- **Get a key:** create a free account at [www.mimiqai.com/sign-up](https://www.mimiqai.com/sign-up?redirect_url=/app/settings) (it includes 50 credits). Open [Settings](https://www.mimiqai.com/app/settings), find "Use Mimiq from your coding agent", and choose "Create a key". The key starts with `mq_sk_` and is shown once.
 - **Send it** on every request as `Authorization: Bearer mq_sk_...` (`X-API-Key: mq_sk_...` works too). The setup snippets above do this.
-- **Credits:** one credit is one simulated person in one run (a flow uses 30 a person). A comparison of n people uses 2n: n to recruit them, n for version B (version A's run comes with the new people). Buy more at [www.mimiqai.com/app/usage](https://www.mimiqai.com/app/usage); packs start at 500 people for $29.
+- **Credits:** one credit is one simulated person in one run (a flow uses more a person; see [pricing](https://www.mimiqai.com/pricing)). A comparison of n people uses 2n: n to recruit them, n for version B (version A's run comes with the new people). Buy more at [www.mimiqai.com/app/usage](https://www.mimiqai.com/app/usage); a $9 Starter (120 credits that never expire) or monthly plans from $49.
 
 ## Report links
 
@@ -194,6 +194,16 @@ Every error carries a `code`, a plain `message` and a `request_id`. Credit and k
 | `SIM_FAILED` | The run failed, for example the page did not load. A failed run is refunded. | Check the URL loads in a normal browser, then call again. |
 | `SIM_TIMEOUT` | The run outlasted `timeout_seconds`. It keeps going on Mimiq's side. | With a key, open the report link later; or call again with a longer timeout. |
 | `RATE_LIMITED` | Too many calls from one network in a minute. | Wait a minute. |
+
+## Local package (npm)
+
+This repository also holds the source of [`@mimiqai/mcp`](https://www.npmjs.com/package/@mimiqai/mcp) in [`src/`](src): a small MCP server you run yourself. It starts a local HTTP endpoint, forwards each call with your key to the Mimiq API, and offers six of the tools above (not the two compare tools). For everyday use the hosted endpoint is simpler; the local server is for setups that want the MCP layer on their own machine.
+
+```bash
+MIMIQ_API_URL=https://api.mimiqai.com/api node src/server.js
+```
+
+Then point your MCP client at `http://127.0.0.1:8787/mcp` with the header `Authorization: Bearer mq_sk_...`. `PORT`, `HOST` and `MIMIQ_MCP_PATH` change where it listens.
 
 ## License
 
