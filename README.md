@@ -26,6 +26,7 @@ Ask your agent directly, or let it test what it just built:
 ## What the agents find, and the limits
 
 - Errors on screen, buttons and links that do nothing, forms that reject good input, dead ends, and steps where agents wait, give up or go the wrong way because of the wording.
+- What the browser recorded: JavaScript errors, failed or 4xx/5xx requests and requests slower than 3 seconds, on the step each happened.
 - Each problem comes with which agents hit it, the step, the screenshot and a suggested fix, ranked by how many agents hit it.
 - The agents are simulated users. They find problems fast; they do not forecast how many real people will convert.
 - They cannot pay with real cards, and CAPTCHAs or bot protection can stop them. Use a preview or staging URL without bot protection.
@@ -172,6 +173,7 @@ Without a key, runs stay private to the agent that ran them and cannot be opened
 - Each agent's `journey_steps`: what it did at each step, where it was, and what it said.
 - Where each agent stopped and why: finished, got partway, or gave up.
 - The problems the agents hit, ranked by how many hit them, with the steps.
+- `browser_caught`: what the browser itself recorded on your site, grouped and ranked by how many agents hit each: JavaScript errors, requests that failed or answered 4xx or 5xx (including your hosted backend, such as Supabase or Firebase), and requests slower than 3 seconds. The summary card lists them too.
 - `counts`, a plain `summary_card`, and `report_url` (with a key).
 
 ## Who the agents are
