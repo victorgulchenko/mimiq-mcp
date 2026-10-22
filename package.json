@@ -1,7 +1,7 @@
 {
   "name": "@mimiqai/mcp",
   "version": "0.3.1",
-  "description": "Test pages, copy and sign-up flows on simulated people with Mimiq MCP.",
+  "description": "AI agents use your web app like your users and report what broke and where they got stuck (Mimiq MCP).",
   "type": "module",
   "main": "./src/server.js",
   "exports": {

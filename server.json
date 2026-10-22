@@ -1,14 +1,14 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.victorgulchenko/mimiq-mcp",
-  "title": "Mimiq: simulated people test your build before you ship",
-  "description": "Simulated people try your build in a real browser and show where they get stuck before you ship.",
+  "title": "Mimiq: AI agents use your app like your users and find what breaks",
+  "description": "AI agents use your app like your users, in real browsers, and report what is broken or confusing.",
   "websiteUrl": "https://www.mimiqai.com/mcp",
   "repository": {
     "url": "https://github.com/victorgulchenko/mimiq-mcp.git",
     "source": "github"
   },
-  "version": "0.4.2",
+  "version": "0.5.0",
   "icons": [
     {
       "src": "https://www.mimiqai.com/mimiq_logo.png",

@@ -1,10 +1,8 @@
 # Mimiq MCP Server
 
-Your agent built it. Simulated customers try it before you ship.
+Your agent built it. AI agents use it like your users before you ship.
 
-Point Mimiq at a preview or staging URL and a task, such as signing up or reaching checkout. Each simulated person opens it in a real browser, clicks, types and fills in your forms (with an inbox of their own for verification codes), and the report shows how far each one got, the step where they got stuck and why. Fix those steps and run it again on the new build.
-
-Mimiq also shows a page, copy, an email or a UI component to simulated people and reports what confused them and what they doubted, and with two versions it makes a call on which one to ship.
+Point Mimiq at a preview or staging URL and a task in plain words, such as signing up or reaching checkout. No test scripts. Each agent acts as one of your users: it opens the app in its own real browser, clicks, types and fills in your forms (with an inbox of its own for verification codes), and the report shows what was broken, what did nothing, where each agent got stuck or gave up and why, with the step and a screenshot. Fix what they hit and run it again on the new build.
 
 [![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_MCP-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect?url=vscode%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522mimiq%2522%252C%2522type%2522%253A%2522http%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fmcp.mimiqai.com%252Fmcp%2522%257D) [![Install in Cursor](https://img.shields.io/badge/Cursor-Install_MCP-black?style=flat-square&logo=cursor&logoColor=white)](https://cursor.com/install-mcp?name=mimiq&config=eyJ1cmwiOiJodHRwczovL21jcC5taW1pcWFpLmNvbS9tY3AifQ==)
 
@@ -12,48 +10,36 @@ Mimiq also shows a page, copy, an email or a UI component to simulated people an
 
 | Tool | What it does |
 |------|-------------|
-| `mimiq.compare_copy` | Two versions of copy or an email, the same simulated people, and Mimiq's call on which to ship. One free A/B without a key (up to 10 people per version). |
-| `mimiq.compare_urls` | Two pages (for example a preview deployment and production), the same simulated people, and Mimiq's call. One free A/B without a key (up to 10 people per version). |
-| `mimiq.test_page` | One page: each person scrolls it and says what confused them, what they doubted and what would help. |
-| `mimiq.test_flow` | A signup, onboarding or checkout flow in a real browser, step by step, to find where people give up. 5 credits a person. |
-| `mimiq.test_copy` | One piece of copy (headline, tagline, subject line, call to action). With `variant_b` it runs `compare_copy`. |
-| `mimiq.test_text` | Any other text (positioning, feature descriptions, error messages, instructions). Pass `goal`. |
-| `mimiq.test_component` | A UI component from its HTML or a description: do people understand it, trust it, use it? |
-| `mimiq.ask_audience` | A multiple-choice question, answered by each person with their reasoning. |
+| `mimiq.test_flow` | AI agents go through a flow on your preview, staging or live URL in real browsers and report what broke, what did nothing and where they got stuck, step by step with screenshots. 5 credits an agent. |
+| `mimiq.show_report` | Shows a saved report again. Reads your account only and spends no credits. |
 
 Ask your agent directly, or let it test what it just built:
 
-> "Test my landing page on startup founders"
+> "Have three agents sign up on this preview and tell me where they get stuck"
 >
-> "Have three people try to sign up on my staging site and tell me where they get stuck"
+> "Check the new checkout on the preview before I merge"
 >
-> "Which headline should we ship? Compare them on freelance designers"
+> "Run Mimiq on staging with parents shopping for school shoes, then fix what they hit"
 >
-> "Compare the preview deployment with production"
+> "Run it again on the fixed build"
 
-## Mimiq's call on two versions
+## What the agents find, and the limits
 
-In `compare_copy` and `compare_urls`, the same people see version A and version B. Mimiq's call combines two things:
+- Errors on screen, buttons and links that do nothing, forms that reject good input, dead ends, and steps where agents wait, give up or go the wrong way because of the wording.
+- Each problem comes with which agents hit it, the step, the screenshot and a suggested fix, ranked by how many agents hit it.
+- The agents are simulated users. They find problems fast; they do not forecast how many real people will convert.
+- They cannot pay with real cards, and CAPTCHAs or bot protection can stop them. Use a preview or staging URL without bot protection.
 
-- a forecast of how people like them behave, asked in both orders so the order cannot decide it;
-- how the same people moved between the versions.
+## On every pull request
 
-The call is **clear** (the forecast and the people agree), **leaning** (the forecast picks a version and the people did not clearly agree), or **too close to call** (no pick: the forecast changed with the order, or the same people moved against the forecast by more than chance explains). The words come from the same code as the Mimiq app, so the result never says more than the report it links to.
+The [Mimiq preview check](https://github.com/victorgulchenko/mimiq-preview-check) GitHub Action runs the agents on each Vercel, Netlify or Cloudflare Pages preview and keeps one comment on the pull request with what they hit. Any other CI can call the same endpoint: it is plain JSON-RPC over HTTP.
 
-The per-100 averages are the simulated people's own estimates, separate from the order-swapped forecast behind the call. The forecast supplies a direction, not a numerical average. If it disagrees with the people's estimates, the reason explains the disagreement and the call is a lean. A call never leans against the movers, though: when the same people moved the other way by a split that stands out from chance (under 5%), there is no pick. Movers count people, so an even split of movers can still have different average estimates.
-
-What you get back:
-
-- `call`: the headline ("Version B is the better bet."), the tier, the pick, the reason in one or two sentences, and how the people bear on it.
-- `movers`: how many of the same people warmed to B, cooled on B, or stayed about the same, and how often chance splits them that unevenly.
-- `versions.a` and `versions.b`: each version's headline, counts and top objections.
-- `report_url`: the comparison in the Mimiq app (with a key). The plain-text summary always ends with it.
-
-Use at least 5 people per comparison: from 5 up, Mimiq reads who moved; below that it compares rates.
-
-## How far to trust it
-
-These are simulated people. Mimiq's forecast has held up on headlines: right on 76% of 1,000 real headline A/B tests, against 61% for the best rule of thumb ([the benchmark](https://www.mimiqai.com/benchmark)). In pre-registered tests on emails, text messages and ads it was no better than chance at ranking small wording changes ([the register](https://github.com/victorgulchenko/mimiqbench)), so treat those calls as a fast first read. A call says which way a difference would go, not how big it would be.
+```bash
+curl -s https://mcp.mimiqai.com/mcp \
+  -H "Content-Type: application/json" -H "Accept: application/json, text/event-stream" \
+  -H "Authorization: Bearer $MIMIQ_API_KEY" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"mimiq.test_flow","arguments":{"url":"'"$PREVIEW_URL"'","goal":"Sign up and start using it","count":3}}}'
+```
 
 ## Setup
 
@@ -84,10 +70,11 @@ Leave out the header to use the free try.
 Add these lines to your project's `CLAUDE.md` or `AGENTS.md`, and your agent checks a customer-facing change before it calls it done:
 
 ```markdown
-## Before calling a customer-facing change done
-After changing a signup, onboarding, checkout, pricing or landing page, run
-mimiq.test_flow on the preview URL with the task a customer would try. Fix the
-steps people got stuck on, then run it again. Ask me before using more than 25 credits.
+## Before calling a user-facing change done
+After changing anything a user goes through (signup, onboarding, checkout,
+settings, a new feature), run mimiq.test_flow on the preview URL with the task
+a user would try. Fix what the agents hit, then run it again. Ask me before
+using more than 25 credits.
 ```
 
 ### Codex
@@ -165,53 +152,31 @@ Through [mcp-remote](https://www.npmjs.com/package/mcp-remote), in the Claude De
 
 ## Keys and the free try
 
-- **Without a key**, each agent gets one free test: one run on up to 100 simulated people. A comparison shows both versions to the same people, so it needs two runs; without a key an agent also gets one free A/B of up to 10 people per version, while the daily free A/B allowance lasts. Anything larger needs a key, and the tools say so before anything is spent.
+- **Without a key**, each agent gets one free test: one flow with up to 3 agents, while the daily free allowance lasts. Anything larger needs a key, and the tool says so before anything is spent.
 - **Get a key:** create a free account at [www.mimiqai.com/sign-up](https://www.mimiqai.com/sign-up?redirect_url=/app/settings) (it includes 50 credits). Open [Settings](https://www.mimiqai.com/app/settings), find "Use Mimiq from your coding agent", and choose "Create a key". The key starts with `mq_sk_` and is shown once.
 - **Send it** on every request as `Authorization: Bearer mq_sk_...` (`X-API-Key: mq_sk_...` works too). The setup snippets above do this.
-- **Credits:** one credit is one simulated person in one run (a flow uses 5 a person). A comparison of n people uses 2n: n to recruit them, n for version B (version A's run comes with the new people). Buy more at [www.mimiqai.com/app/usage](https://www.mimiqai.com/app/usage); packs start at 150 people for $9.
+- **Credits:** an agent in a flow uses 5 credits. Buy more at [www.mimiqai.com/app/usage](https://www.mimiqai.com/app/usage): a one-time Starter of 120 credits for $9, or plans from $19 a month.
+
+## Signed-in pages and protected previews
+
+Pass `access` to `test_flow` for a preview behind Vercel Deployment Protection (`vercel_bypass`), a browser password prompt (`basic_auth`) or pages behind a sign-in (`login`, a test account). The agents type placeholders; the real values are filled in only in the browser, kept apart from the test and deleted when the run ends, and never appear in results or reports. Access comes with paid credits.
 
 ## Report links
 
-With a key, every test and comparison is saved to your account, and the result ends with a link to it in the Mimiq app (`/app/t/...` for a test, `/app/compare/.../...` for a comparison). Put the link in your summary so your human can open the full report, the people and their words. Reports are private until you share them from the app.
+With a key, every run is saved to your account, and the result ends with a link to it in the Mimiq app (`/app/t/...`). Put the link in your summary so your human can open the full report, the agents' steps and their screenshots. Reports are private until you share them from the app.
 
-Without a key, tests stay private to the agent that ran them and cannot be opened in the app; the result says how to get a key instead. `ask_audience` answers are returned in full and are not saved as a report yet.
+Without a key, runs stay private to the agent that ran them and cannot be opened in the app; the result says how to get a key instead.
 
-## What a single test returns
+## What a run returns
 
-Each simulated person's reaction, not a verdict:
-
-- `action` and `action_class` (`converted`, `engaged` or `bounced`): what they did.
-- `monologue`, `objections`, `what_would_help`: what they thought, what stopped them, what would change their mind.
-- `per_100`: on copy and page tests, the person's own estimate of how many in 100 people like them would stop or stay, and act.
-- `journey_steps`: on `test_page` and `test_flow`, the steps where something changed.
+- Each agent's `journey_steps`: what it did at each step, where it was, and what it said.
+- Where each agent stopped and why: finished, got partway, or gave up.
+- The problems the agents hit, ranked by how many hit them, with the steps.
 - `counts`, a plain `summary_card`, and `report_url` (with a key).
 
-For `ask_audience`, `headline` and `summary_card` count the selected options. `votes` and `counts` give each option's count, including zero votes; `unanswered` counts missing or unrecognized choices. Each person's `selected_option` and `monologue` retain their choice and reason. These answers are not classified as interest or intent to act.
+## Who the agents are
 
-## Audience fit for pages and flows
-
-`test_page` and `test_flow` start immediately unless the recruited crowd is wrong: more
-than 1 in 5 people who are not the requested audience. People
-who are close but unverified are reported, not blocked. The usual result (including
-`still_running` on a polling timeout) also includes `audience: { summary, examples, fit }`,
-`review_id` and a `change_who` action. Show who was recruited along with the result. Fit
-includes the verified rate and fit counts.
-
-Only a wrong crowd returns `status: "audience_review"` before simulation. Show the
-summary, examples and warning, then let the user choose:
-
-- **Continue anyway:** call the same tool and URL with `review_id`, `confirm_audience: true`
-  and `audience_fit_acknowledged: true`, after they acknowledge the warning. This reuses
-  the reviewed crowd.
-- **Not quite? Change who and rerun:** send `review_id` and `audience_correction` with the
-  same tool and URL. This works from a review, a live run or a completed result. It recruits
-  a new crowd and starts a new run unless that crowd is wrong, in which case it returns a
-  new review.
-  Corrections use the existing recruitment and simulation credit rules.
-
-Reviews are saved, owner-checked and bound to the URL and test kind. Changing who keeps
-the original count, goal and step limit. An acknowledgement of the old crowd does not
-acknowledge a new low-fit crowd. `audience_fit` is retained for existing integrations.
+By default Mimiq builds agents who match who the app is for, from the page. Pass `audience` in plain words to choose ("freelance designers", "parents shopping for school shoes"). The run starts right away unless the recruited agents are wrong (more than 1 in 5 not the requested audience); then the result is `status: "audience_review"`: show the warning, then continue with `review_id`, `confirm_audience: true` and `audience_fit_acknowledged: true`, or recruit again with `review_id` and `audience_correction`. In the app you can also build agents from your own customers (a CSV; names, emails and phone numbers are stripped before upload).
 
 ## Localhost
 
@@ -228,7 +193,7 @@ Every error carries a `code`, a plain `message` and a `request_id`. Credit and k
 
 | Code | What it means | What to do |
 |------|---------------|------------|
-| `INSUFFICIENT_CREDITS` | `reason` says which: `free_try_used`, `ab_needs_two_runs`, `free_try_too_big`, `network_monthly_limit`, or `out_of_credits` (with a key). | Get a key, run fewer people, or buy more credits. |
+| `INSUFFICIENT_CREDITS` | `reason` says which: `free_try_used`, `free_flow_too_big`, `free_flows_used_today`, `network_monthly_limit`, or `out_of_credits` (with a key). | Get a key, run fewer agents, or buy more credits. |
 | `UNAUTHORIZED` | The key was not accepted (`invalid_key`). | Check it starts with `mq_sk_` and is still listed in Settings. |
 | `INVALID_INPUT` | A missing field, or a URL Mimiq cannot reach (localhost, a private address). | Fix the input; for localhost, use a tunnel. |
 | `SIM_FAILED` | The run failed, for example the page did not load. A failed run is refunded. | Check the URL loads in a normal browser, then call again. |
@@ -292,7 +257,7 @@ and a working local Playwright browser.
 ### Commands
 
 ```bash
-npm test                        # unit tests, the compare tools against a mocked API
+npm test                        # unit tests, the tools against a mocked API
 npm run vendor                  # rebuild src/vendor/app-logic.js from the app (src/mimiq/lib)
 MIMIQ_API_URL=http://127.0.0.1:8000/api MIMIQ_E2E_API_KEY=mq_sk_... npm run e2e   # compare_copy end to end, 3 people
 ./deploy.sh --dry               # what a deploy would sync (see deploy.sh)
